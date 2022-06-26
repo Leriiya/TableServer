@@ -9,6 +9,7 @@ function App() {
   const url = "http://localhost:5000/tables";
   const [isButtonClick, setIsButtonClick] = useState(false);
   const [directionSort, setDirectionSort] = useState(true);
+  const [lotOneSortDirection, setlotOneSortDirection] = useState(true)
   const [rowItem, setRowItem] = useState("");
   const [{ contactData, isLoading, setContactData, setIsLoading }, getData] =
     UserServerData({ url, isButtonClick });
@@ -27,7 +28,10 @@ function App() {
           setContactData={setContactData}
           setDirectionSort={setDirectionSort}
           directionSort={directionSort}
-          // detailRow={detailRow}
+          lotOneSortDirection = {lotOneSortDirection}
+          setlotOneSortDirection = {setlotOneSortDirection}
+          
+          detailRow={detailRow}
         />
       )}
       <AddButton />

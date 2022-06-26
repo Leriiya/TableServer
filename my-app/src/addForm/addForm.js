@@ -38,7 +38,8 @@ const AddButton = () => {
           required="required"
           placeholder="Введите запчасть"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => {
+            setDescription(e.target.value)}}
         />
         <input
           className="input_form"

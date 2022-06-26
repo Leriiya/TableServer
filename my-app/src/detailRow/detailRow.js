@@ -1,8 +1,9 @@
 import React from "react";
+import './detailRow.css'
 
 const DetailItem = ({ detailItemData }) => {
     return (
-        <div>
+        <div className="detailForm">
             <div>
                 название:  <b>{detailItemData.description}</b>
             </div>

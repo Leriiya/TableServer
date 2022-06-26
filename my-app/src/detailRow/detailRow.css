@@ -1,0 +1,7 @@
+.detailForm {
+    border: 2px rgb(165, 158, 158) solid;
+    width: 400px;
+    margin-bottom: 40px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import ArrowDown from "../svg/arrowDown";
 import ArrowUp from "../svg/arrowUp";
 import "./table.css";
+import TableRow from "./tableRow.js"
 
 const Table = (props) => {
   const directionSort = props.directionSort;
-  // const lotOneSortDirection = props.lotOneSortDirection;
+  
 
   //сортировка сумма опта и розницы по убыванию
   const sortOnePlusLot = (field) => {
@@ -30,7 +31,7 @@ const Table = (props) => {
   //сортировка По отношению
   const sortOneLot = () => {
     const copyData = props.contactData.concat(); //копировали данные из массива
-    console.log("sortonelot")
+    console.log("sortonelot");
     let sortOneLot;
     if (directionSort) {
       sortOneLot = copyData.sort((a, b) => {
@@ -53,7 +54,7 @@ const Table = (props) => {
   const sortData = (field) => {
     const copyData = props.contactData.concat(); //копировали данные из массива
     let sortData;
-    console.log(directionSort)
+    console.log(directionSort);
     sortData = copyData.sort((a, b) => {
       return a[field] > b[field] ? 1 : -1;
     });
@@ -62,8 +63,7 @@ const Table = (props) => {
         return a[field] > b[field] ? 1 : -1;
       });
     }
-    
-    
+
     props.setContactData(sortData);
     props.setDirectionSort(!directionSort);
   };
@@ -78,11 +78,11 @@ const Table = (props) => {
     sortData(field);
     setFieldData(field);
   };
-  
+
   const OneLotSort = () => {
     sortOneLot();
-    setFieldData()
-  }
+    setFieldData();
+  };
   //
   const [tables, setTables] = useState([]);
 
@@ -115,31 +115,37 @@ const Table = (props) => {
 
   console.log(tables);
 
+
+  function AddRow (data) {
+    const productTable = document.querySelector("#productTable")
+    productTable.appendChild(<TableRow detailRow={props.detailRow} table={data} />)
+  } 
+
   return (
     <div>
-      <button title="процентное соотношение"
+      <button
+        title="процентное соотношение"
         className="btn btn-success"
         onClick={() => {
           OneLotSort();
         }}
       >
         разница/опт{" "}
-        {fieldData === "price_one" && "price_lot" ? <Arrow /> : null}
       </button>
       <button
         className="btn btn-success"
         onClick={() => {
-          FieldSortData("price_one", "price_lot");
+          OneLotSort();
         }}
       >
         опт+розница{" "}
-        {fieldData === "price_one" && "price_lot" ? <Arrow /> : null}
       </button>
 
-      <table className="table">
+      <table className="table" id="productTable">
         <thead>
           <tr>
-            <th title="А-Я"
+            <th
+              title="А-Я"
               className="description"
               onClick={() => {
                 FieldSortData("description");
@@ -172,15 +178,18 @@ const Table = (props) => {
               цена опт. {fieldData === "price_lot" ? <Arrow /> : null}
             </th>
             <th
-            className="description"
+              className="description"
               onClick={() => {
                 FieldSortData("volume");
               }}
             >
               объём опта {fieldData === "volume" ? <Arrow /> : null}
             </th>
+            <th className="description" title="розница/опт">
+              %
+            </th>
             <th
-            className="description"
+              className="description"
               onClick={() => {
                 FieldSortData("company");
               }}
@@ -188,21 +197,21 @@ const Table = (props) => {
               компания {fieldData === "company" ? <Arrow /> : null}
             </th>
             <th
-            className="description"
+              className="description"
               onClick={() => {
                 FieldSortData("phone");
               }}
             >
               тел для заказа {fieldData === "phone" ? <Arrow /> : null}
             </th>
-            <th 
-            title="розница/опт">%</th>
+
             <th>Удалить</th>
           </tr>
         </thead>
         <tbody>
           {props.contactData.map((table) => (
-            <tr className="table_row"
+            <tr
+              className="table_row"
               key={table.table_id + table.phone}
               onClick={() => {
                 props.detailRow(table);
@@ -213,9 +222,12 @@ const Table = (props) => {
               <td>{table.price_one}</td>
               <td>{table.price_lot}</td>
               <td>{table.volume}</td>
+              <td>
+                {Math.floor((table.price_one / table.price_lot - 1) * 100)}
+              </td>
               <td>{table.company}</td>
               <td>{table.phone}</td>
-              <td></td>
+
               <td>
                 <button
                   className="btn btn-danger table_delete"

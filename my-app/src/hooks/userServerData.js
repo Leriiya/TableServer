@@ -2,14 +2,12 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 
 
-const UserServerData = ({ url, isButtonClick }) => {
+const UserServerData = ({ url }) => {
 
     const [contactData, setContactData] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
-    const getData = () => {
-
-    }
+    
 
     useEffect(() => {
         axios.get(url).then((res) => {
@@ -20,7 +18,7 @@ const UserServerData = ({ url, isButtonClick }) => {
         })
     }, [url])
 
-    return [{ contactData, isLoading, setContactData, setIsLoading }, getData]
+    return [{ contactData, isLoading, setContactData, setIsLoading }]
 }
 
 

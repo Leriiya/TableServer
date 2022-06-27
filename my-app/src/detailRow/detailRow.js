@@ -2,6 +2,10 @@ import React from "react";
 import './detailRow.css'
 
 const DetailItem = ({ detailItemData }) => {
+
+    
+
+
     return (
         <div className="detailForm">
             <div>

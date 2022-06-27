@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import UserServerData from "../hooks/userServerData";
+import Table from "../table/table";
+import TableRow from "../table/tableRow";
+
 import "./addForm.css";
 
-const AddButton = () => {
+const AddButton = (props) => {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price_one, setPriceone] = useState("");
@@ -9,18 +13,31 @@ const AddButton = () => {
   const [volume, setVolume] = useState("");
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
+  
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { description, quantity, price_one, price_lot, volume, company, phone };
+      const body = {
+        description,
+        quantity,
+        price_one,
+        price_lot,
+        volume,
+        company,
+        phone,
+      };
       const response = await fetch("http://localhost:5000/tables", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(body)
-      })
-
-      window.location = "/";
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      
+      
+        
+      
+      
+      
 
     } catch (err) {
       console.error(err.message);
@@ -39,7 +56,8 @@ const AddButton = () => {
           placeholder="Введите запчасть"
           value={description}
           onChange={(e) => {
-            setDescription(e.target.value)}}
+            setDescription(e.target.value);
+          }}
         />
         <input
           className="input_form"
